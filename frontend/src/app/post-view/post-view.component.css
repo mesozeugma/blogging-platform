@@ -1,0 +1,18 @@
+.multiline {
+  white-space: pre-wrap;
+}
+
+mat-card {
+  margin: 16px;
+}
+
+form {
+  margin: auto;
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}

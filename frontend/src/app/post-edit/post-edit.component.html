@@ -1,0 +1,44 @@
+<section class="post-form">
+  <form
+    fxLayout="column"
+    fxLayoutAttribute="center center"
+    [formGroup]="form"
+    (ngSubmit)="submitPost()"
+  >
+    <mat-form-field>
+      <input
+        type="text"
+        matInput
+        placeholder="Title"
+        required
+        formControlName="title"
+        name="title"
+      />
+      <mat-error *ngIf="form.controls.title.hasError('required')"
+        >Title is required</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        placeholder="Body"
+        required
+        formControlName="body"
+        name="body"
+        cdkTextareaAutosize
+      ></textarea>
+      <mat-error *ngIf="form.controls.body.hasError('required')"
+        >Body is required</mat-error
+      >
+    </mat-form-field>
+    <div [hidden]="!error" style="color: red">Failed to create post</div>
+    <button
+      mat-raised-button
+      type="submit"
+      [disabled]="!form.valid"
+      color="primary"
+    >
+      Submit
+    </button>
+  </form>
+</section>

@@ -1,0 +1,13 @@
+mat-card {
+  margin: 16px;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+mat-icon.mat-card-avatar {
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+}

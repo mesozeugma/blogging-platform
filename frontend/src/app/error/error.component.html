@@ -1,0 +1,17 @@
+<ng-container *ngIf="message; else loading">
+  <div
+    fxLayout="row wrap"
+    fxLayout="column"
+    fxLayoutAlign="flex-start"
+    fxLayoutGap="16px"
+  >
+    <mat-card fxFlex="100%">
+      <mat-card-header>
+        <mat-card-title>{{ message }}</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <mat-spinner> </mat-spinner>
+</ng-template>

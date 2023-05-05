@@ -1,0 +1,61 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Comments</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card *ngFor="let comment of comments">
+      <mat-card-header>
+        <mat-card-subtitle
+          >Created at: {{ comment.createdAt | date }}</mat-card-subtitle
+        >
+        <mat-card-subtitle
+          *ngIf="comment.createdAt.getTime() !== comment.updatedAt.getTime()"
+          >Modified at: {{ comment.updatedAt | date }}</mat-card-subtitle
+        >
+      </mat-card-header>
+      <mat-card-content>
+        <span class="multiline">{{ comment.body }}</span>
+      </mat-card-content>
+      <mat-card-actions *ngIf="canEditComment(comment)">
+        <button
+          mat-button
+          [routerLink]="['/posts', postId, 'comment-edit', comment.id]"
+        >
+          Edit
+        </button>
+        <button mat-button (click)="deleteComment(comment.id)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+    <section *ngIf="isLoggedIn()" class="comment-form">
+      <form
+        fxLayout="column"
+        fxLayoutAttribute="center center"
+        [formGroup]="commentForm"
+        (ngSubmit)="submitComment()"
+      >
+        <mat-form-field>
+          <textarea
+            matInput
+            placeholder="Body"
+            required
+            formControlName="body"
+            name="body"
+            cdkTextareaAutosize
+          ></textarea>
+          <mat-error *ngIf="commentForm.controls.body.hasError('required')"
+            >Body is required</mat-error
+          >
+        </mat-form-field>
+        <div [hidden]="!error" style="color: red">Failed to create comment</div>
+        <button
+          mat-raised-button
+          type="submit"
+          [disabled]="!commentForm.valid"
+          color="primary"
+        >
+          Submit
+        </button>
+      </form>
+    </section>
+  </mat-card-content>
+</mat-card>

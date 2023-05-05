@@ -1,0 +1,61 @@
+<section class="signup-form">
+  <form
+    fxLayout="column"
+    fxLayoutAttribute="center center"
+    [formGroup]="signupForm"
+    (ngSubmit)="signup()"
+  >
+    <mat-form-field>
+      <input
+        type="text"
+        matInput
+        placeholder="Username"
+        required
+        formControlName="username"
+        name="username"
+      />
+      <mat-error *ngIf="signupForm.controls.username.hasError('required')"
+        >Username is required</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        type="password"
+        matInput
+        placeholder="Password"
+        required
+        formControlName="password1"
+        name="password1"
+      />
+      <mat-error *ngIf="signupForm.controls.password1.hasError('required')"
+        >Password is required</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        type="password"
+        matInput
+        placeholder="Password Confirmation"
+        required
+        formControlName="password2"
+        [errorStateMatcher]="errorMatcher"
+        name="password2"
+      />
+      <mat-error *ngIf="signupForm.controls.password2.hasError('required')"
+        >Password Confirmation is required</mat-error
+      >
+      <mat-error *ngIf="signupForm.errors?.['passwordMismatch']"
+        >Passwords must match</mat-error
+      >
+    </mat-form-field>
+    <div [hidden]="!error" style="color: red">Failed to register.</div>
+    <button
+      mat-raised-button
+      type="submit"
+      [disabled]="!signupForm.valid"
+      color="primary"
+    >
+      Sign up
+    </button>
+  </form>
+</section>

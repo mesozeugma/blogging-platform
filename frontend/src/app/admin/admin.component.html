@@ -1,0 +1,28 @@
+<ng-container *ngIf="users$ | async as users; else loading">
+  <div
+    fxLayout="row wrap"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="32px"
+    fxLayoutAlign="flex-start"
+  >
+    <ng-container *ngFor="let user of users">
+      <mat-card
+        fxFlex="0 1 calc(33.3% - 32px)"
+        fxFlex.lt-md="0 1 calc(50% - 32px)"
+        fxFlex.lt-sm="100%"
+      >
+        <mat-card-header>
+          <mat-icon mat-card-avatar>account_circle</mat-icon>
+          <mat-card-title>{{ user.username }}</mat-card-title>
+          <mat-card-subtitle *ngIf="user.isAdmin">Admin</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions *ngIf="!isSelf(user)">
+          <button mat-button (click)="deleteUser(user)">Delete</button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <mat-spinner> </mat-spinner>
+</ng-template>

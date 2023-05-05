@@ -1,0 +1,35 @@
+<ng-container *ngIf="post; else loading">
+  <div
+    fxLayout="row wrap"
+    fxLayout="column"
+    fxLayoutAlign="flex-start"
+    fxLayoutGap="16px"
+  >
+    <mat-card fxFlex="100%">
+      <mat-card-header>
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle
+          >Created at: {{ post.createdAt | date }}</mat-card-subtitle
+        >
+        <mat-card-subtitle
+          *ngIf="post.createdAt.getTime() !== post.updatedAt.getTime()"
+          >Modified at: {{ post.updatedAt | date }}</mat-card-subtitle
+        >
+      </mat-card-header>
+      <mat-card-actions *ngIf="canEditPost">
+        <button mat-button [routerLink]="['/posts', post.id, 'edit']">
+          Edit
+        </button>
+        <button mat-button (click)="deletePost()">Delete</button>
+      </mat-card-actions>
+      <mat-card-content>
+        <span class="multiline">{{ post.body }}</span>
+        <mat-divider></mat-divider>
+        <router-outlet></router-outlet>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <mat-spinner> </mat-spinner>
+</ng-template>
